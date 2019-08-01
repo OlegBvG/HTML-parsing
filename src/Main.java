@@ -17,6 +17,9 @@ public class Main {
     public static void main(String[] args) {
 
         String targetDir = "d:\\CopyLenta\\";
+        final String SELECT_PICTURE = " img[src~=(?i)\\.(png|jpe?g)]";
+        final String PATTERN_SELECT = "[^/][a-zA-Z0-9_]+\\.(png|jpe?g)";
+        final String ATTRIBUTE_SELECT = "src";
         Document doc = null;
 
         try {
@@ -35,10 +38,10 @@ public class Main {
         String title = doc.title();
         System.out.println("Title : " + title);
 
-        Elements picture = doc.select(" img[src~=(?i)\\.(png|jpe?g)]");
-        Pattern pattern = Pattern.compile("[^/][a-zA-Z0-9_]+\\.(png|jpe?g)");
+        Elements picture = doc.select(SELECT_PICTURE);
+        Pattern pattern = Pattern.compile(PATTERN_SELECT);
 
-        picture.forEach(p -> copyFile(p.attr("src"), targetDir, pattern));
+        picture.forEach(p -> copyFile(p.attr(ATTRIBUTE_SELECT), targetDir, pattern));
 
     }
 
